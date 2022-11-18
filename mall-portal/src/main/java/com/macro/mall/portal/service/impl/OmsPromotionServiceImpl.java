@@ -91,7 +91,7 @@ public class OmsPromotionServiceImpl implements OmsPromotionService {
                         //(商品原价/总价)*满减金额
                         PmsSkuStock skuStock= getOriginalPrice(promotionProduct, item.getProductSkuId());
                         BigDecimal originalPrice = skuStock.getPrice();
-                        BigDecimal reduceAmount = originalPrice.multiply(fullReduction.getReducePrice());
+                        BigDecimal reduceAmount = originalPrice.divide(totalAmount,RoundingMode.HALF_EVEN).multiply(fullReduction.getReducePrice());
                         cartPromotionItem.setReduceAmount(reduceAmount);
                         cartPromotionItem.setRealStock(skuStock.getStock()-skuStock.getLockStock());
                         cartPromotionItem.setIntegration(promotionProduct.getGiftPoint());
